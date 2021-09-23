@@ -1,0 +1,12 @@
+<h1>Players:</h1>
+{% for player in players %}
+    <h2>{{ player.nickname }}</h2>
+    {% for tile in player.hand %}
+        <p>{{ tile.value }} {{ tile.suit }}</p>
+    {% endfor %}
+{% endfor %}
+<h1>Table:</h1>
+{% for tile in game.face_up %}
+    <p>{{ tile.value }} {{ tile.suit }}</p>
+{% endfor %}
+{{ hands }}
