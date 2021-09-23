@@ -1,12 +1,15 @@
 <h1>Players:</h1>
 {% for player in players %}
-    <h2>{{ player.nickname }}</h2>
+<!--{{player.hand}}-->
+    <h2>{{ player.nickname }}</h2><a href="{% url 'pick_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}"> Pick up tile</a>
     {% for tile in player.hand %}
-        <p>{{ tile.value }} {{ tile.suit }}</p>
+        <p>{{ tile.value }} {{ tile.suit }}<a href="{% url 'discard_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}&tile={{ tile.pk|urlencode }}"> Discard</a></p>
     {% endfor %}
+
 {% endfor %}
 <h1>Table:</h1>
 {% for tile in game.face_up %}
     <p>{{ tile.value }} {{ tile.suit }}</p>
 {% endfor %}
-{{ hands }}
+Game.pk = {{ game.id }}
+tiles left: {{ game.face_down|length }}
