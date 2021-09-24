@@ -11,7 +11,7 @@ class Tile(models.Model):
     suit = models.CharField(max_length=50)
     value = models.CharField(max_length=50, null=True)
     quantity = models.IntegerField(default=4, null=False)
-    symbol = models.ImageField(upload_to='avatars', default='default.jpg')
+    symbol = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.suit} {self.value}"

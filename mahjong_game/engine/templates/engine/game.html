@@ -1,15 +1,39 @@
+{% load static %}
+
 <h1>Players:</h1>
 {% for player in players %}
 <!--{{player.hand}}-->
-    <h2>{{ player.nickname }}</h2><a href="{% url 'pick_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}"> Pick up tile</a>
-    {% for tile in player.hand %}
-        <p>{{ tile.value }} {{ tile.suit }}<a href="{% url 'discard_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}&tile={{ tile.pk|urlencode }}"> Discard</a></p>
-    {% endfor %}
+<h2>{{ player.nickname }}</h2><a
+        href="{% url 'pick_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}"> Pick up tile</a>
+<table style="text-align: center">
+    <tr>
+        {% for tile in player.hand %}
+        <td style="padding: 10px">
+            <p>
+                <img src="{% static tile.symbol %}" alt="Tile" width="40px"><br/>
+                {{ tile.value }}<br/>{{ tile.suit }}<br/>
+                <a href="{% url 'discard_tile' %}?game={{ game.pk|urlencode }}&player={{ player.pk|urlencode }}&tile={{ tile.pk|urlencode }}">
+                    Discard
+                </a>
+            </p>
+        </td>
+        {% endfor %}
+    </tr>
+</table>
 
 {% endfor %}
 <h1>Table:</h1>
-{% for tile in game.face_up %}
-    <p>{{ tile.value }} {{ tile.suit }}</p>
-{% endfor %}
+<table style="text-align: center">
+    <tr>
+        {% for tile in game.face_up %}
+        <td style="padding: 10px">
+            <p>
+                <img src="{% static tile.symbol %}" alt="Tile" width="40px"><br/>
+                {{ tile.value }}<br/>{{ tile.suit }}<br/>
+            </p>
+        </td>
+        {% endfor %}
+    </tr>
+</table>
 Game.pk = {{ game.id }}
 tiles left: {{ game.face_down|length }}
